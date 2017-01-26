@@ -34,7 +34,10 @@ public class AppConfig {
 
 	@Bean
 	public JdbcTemplate jdbcTemplate(DataSource dataSource) {
-		return new JdbcTemplate(dataSource);
+		JdbcTemplate template = new JdbcTemplate(dataSource);
+		template.setDatabaseProductName(env.getProperty("jdbc.schema"));
+		
+		return template;
 	}
 
 	@Bean
@@ -49,6 +52,7 @@ public class AppConfig {
 		dataSource.setUrl(env.getProperty("jdbc.url"));
 		dataSource.setUsername(env.getProperty("jdbc.username"));
 		dataSource.setPassword(env.getProperty("jdbc.password"));
+		
 		return dataSource;
 	}
 

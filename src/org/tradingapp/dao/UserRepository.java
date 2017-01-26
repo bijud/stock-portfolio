@@ -31,7 +31,7 @@ public class UserRepository {
 	 */
 	@Transactional(readOnly = true)
 	public List<User> findAll() {
-		return jdbcTemplate.query("SELECT * FROM user", new UserMapper());
+		return jdbcTemplate.query("SELECT * FROM trading.user", new UserMapper());
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class UserRepository {
 	 */
 	@Transactional
 	public void insert(User user) {
-		String insertStatement = "INSERT INTO user" + "(id, username) VALUES (?, ?)";
+		String insertStatement = "INSERT INTO trading.user" + "(id, username) VALUES (?, ?)";
 
 		jdbcTemplate.update(insertStatement, new Object[] { user.getId(), user.getUsername() });
 	}

@@ -34,7 +34,7 @@ public class StockRepository {
 	 */
 	@Transactional(readOnly = true)
 	public List<Stock> findAll() {
-		return jdbcTemplate.query("SELECT * FROM stocks", new StockMapper());
+		return jdbcTemplate.query("SELECT * FROM trading.stocks", new StockMapper());
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class StockRepository {
 	 */
 	@Transactional(readOnly = true)
 	public Stock findOne(String companyName) {
-		String query = "SELECT * FROM stocks WHERE company_name = ?";
+		String query = "SELECT * FROM trading.stocks WHERE company_name = ?";
 
 		return jdbcTemplate.queryForObject(query, new Object[] { companyName }, new StockMapper());
 	}
@@ -57,7 +57,7 @@ public class StockRepository {
 	 */
 	@Transactional
 	public void insert(Stock stock) {
-		String insertStatement = "INSERT INTO stocks "
+		String insertStatement = "INSERT INTO trading.stocks "
 				+ "(id, company_name, current_price, purchase_price, net_profit, user_id) VALUES (?, ?, ?, ?, ?, ?)";
 
 		jdbcTemplate.update(insertStatement, new Object[] { stock.getId(), stock.getCompanyName(),
@@ -72,7 +72,7 @@ public class StockRepository {
 	 */
 	@Transactional
 	public void deleteStock(Stock stock) {
-		String deleteStatement = "DELETE FROM stocks WHERE company_name = ?";
+		String deleteStatement = "DELETE FROM trading.stocks WHERE company_name = ?";
 
 		jdbcTemplate.update(deleteStatement, new Object[] { stock.getCompanyName() });
 	}
@@ -85,7 +85,7 @@ public class StockRepository {
 	 *            - The stock we want to update prices on.
 	 */
 	public void updateStockPrices(Stock stock) {
-		String updateStatement = "UPDATE stocks SET current_price = ?, purchase_price = ?, net_profit = ? WHERE id = ?";
+		String updateStatement = "UPDATE trading.stocks SET current_price = ?, purchase_price = ?, net_profit = ? WHERE id = ?";
 
 		stock.setId(findOne(stock.getCompanyName()).getId());
 
