@@ -1,7 +1,8 @@
-
+DROP SCHEMA IF EXISTS `trading`;
+CREATE SCHEMA `trading`;
 DROP TABLE IF EXISTS `trading`.`user`;
 DROP TABLE IF EXISTS `trading`.`stocks`;
-CREATE TABLE `stocks` (
+CREATE TABLE `trading`.`stocks` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `company_name` varchar(45) DEFAULT NULL,
   `current_price` varchar(45) DEFAULT NULL,
@@ -10,7 +11,7 @@ CREATE TABLE `stocks` (
   `user_id` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE `user` (
+CREATE TABLE `trading`.`user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
