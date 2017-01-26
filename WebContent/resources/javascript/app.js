@@ -1,8 +1,14 @@
 var currentUserId = 1;
 
-(function($) {
+function drawview() {
 
-	var Stock = Backbone.Model.extend();
+	var Stock = Backbone.Model.extend({
+		parse : function(response) {
+			console.log(response);
+			response.id = response._id;
+			return response;
+		}
+	});
 
 	var StockView = Backbone.View.extend({
 		tagName : "div",
@@ -17,17 +23,15 @@ var currentUserId = 1;
 		},
 
 		events : {
-			"click .lookupStock" : "addStock",
-			"click .delete" : "deleteStock"
+			"click .delete" : "deleteStock",
+			"click .lookupstock" : "addstock"
 		},
 
-		addStock : function(e) {
-			console.log("Inside Add Stock.");
-			e.preventDefault();
-
+		addstock : function() {
+			window.alert("Inside Add Stock.");
 			var formData = {};
 
-			$("#content-right div").children("input").each(function(i, el) {
+			$("#stockLookupForm").children("input").each(function(i, el) {
 				if ($(el).val() !== "") {
 					formData[el.id] = $(el).val();
 					console.log("EL:" + $(el).val());
@@ -58,12 +62,12 @@ var currentUserId = 1;
 
 		initialize : function() {
 			this.collection = new StockCollection();
-	        this.collection.fetch();
-	        this.render();
-	 
-	        this.collection.on("add", this.renderStock, this);
-	        this.collection.on("remove", this.removeStock, this);
-	        this.collection.on("reset", this.render, this);
+			this.collection.fetch();
+			this.render();
+
+			this.collection.on("add", this.renderStock, this);
+			this.collection.on("remove", this.removeStock, this);
+			this.collection.on("reset", this.render, this);
 		},
 
 		render : function() {
@@ -89,7 +93,7 @@ var currentUserId = 1;
 	} ]
 
 	var stockCollectionView = new StockCollectionView();
-})(jQuery);
+}
 
 // This function looks up a stock by calling the Yahoo API, and then
 // populates the form with the data.
@@ -97,6 +101,9 @@ var currentUserId = 1;
 // the database.
 
 function a() {
+	$('.stockdata').each(function() {
+		$(this).children().remove()
+	});
 	var stockSymbol = $('#stockSymbol').val();
 	var currentStockName = "";
 	var currentStockCurrentPrice = "";
@@ -132,13 +139,15 @@ function a() {
 							currentPrice : currentStockCurrentPrice,
 							purchasePrice : currentStockPurchasePrice,
 							netProfit : currentStockNetProfit
-						}, function(data) {
-							alert("Data Loaded: " + data);
-						});
+						}).always(function(){drawview();});
 					});
 
 }
 
 function deletestock(stockname) {
-	$.get('deleteStock?companyName='+stockname);
+	$.get('deleteStock?companyName=' + stockname);
 }
+
+(function($) {
+	drawview();
+})(jQuery);

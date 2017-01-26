@@ -27,19 +27,26 @@ button {
 	margin: 5px 20px 10px 10px;
 }
 
-table { width: 100%; display:block}
-tr{width: 100%}
+table {
+	width: 100%;
+	display: block
+}
+
+tr {
+	width: 100%
+}
 </style>
 </head>
 <body>
 	<div style="width: 100%; border-bottom: 1px solid black;">
 		<h3>Biju's Trading App</h3>
 	</div>
-	<div class="content">
-		<div id="content-left" style="width: 45%; border-right:1px solid black; float: left">
+	<div id="content">
+		<div id="content-left"
+			style="width: 45%; border-right: 1px solid black; float: left">
 			<div id="stocks">
 				<h3>Your stocks:</h3>
-				<table >
+				<table id="stocktable">
 					<thead>
 						<tr>
 							<th>Company Name</th>
@@ -48,9 +55,10 @@ tr{width: 100%}
 							<th>Net Profit</th>
 							<th></th>
 						</tr>
-					</thead><tbody>
-					<script id="stockTemplate" type="text/template">
-		<tr>
+					</thead>
+					<tbody>
+						<script id="stockTemplate" type="text/template">
+		<tr class="stockdata">
 		<td style="width:35%"><%=companyName%></td>
 		<td style="width:18%; text-align: right">$<%=currentPrice%></td>
 		<td style="width:28%; text-align: right">$<%=purchasePrice%></td>
@@ -58,19 +66,19 @@ tr{width: 100%}
 		<td style="width:10%;"><button class="delete" onclick="deletestock('<%=companyName%>')">Delete</button></td>
 	    </tr>
 		__
-	</script></tbody>
-					
-				</table>
+	</script>
+					</tbody>
 
+				</table>
 			</div>
+
 		</div>
 		<div id="content-right" style="width: 49%; float: left;">
 			<form id="stockLookupForm" action="#">
 				<p>
 					Enter a stock symbol to lookup: <input type="text" size="10"
-						id="stockSymbol" value="YHOO" /> <input type="button"
-						id="lookupStock" class="lookupStock" onclick="a(); "
-						value="Lookup" />
+						id="stockSymbol" value="YHOO" />
+					<button class="lookupstock" onclick="a(); ">Lookup</button>
 				</p>
 
 
