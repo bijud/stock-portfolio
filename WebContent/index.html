@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Biju's Trading App</title>
+
+<!-- Lookup a stock and populate the fields in the webpage with the result.   -->
+<!-- This uses JQuery to make a restful call to yahoo's api. -->
+<!-- company name, current price, purchase price, net profit and last column will be delete stock. -->
+
+<style type="text/css">
+.stockContainer ul {
+	list-style-type: none;
+	margin-bottom: 0;
+}
+
+.stockContainer button {
+	margin: 10px;
+}
+
+#stocks {
+	
+}
+
+button {
+	display: block;
+	margin: 5px 20px 10px 10px;
+}
+
+table { width: 100%; display:block}
+tr{width: 100%}
+</style>
+</head>
+<body>
+	<div style="width: 100%; border-bottom: 1px solid black;">
+		<h3>Biju's Trading App</h3>
+	</div>
+	<div class="content">
+		<div id="content-left" style="width: 45%; border-right:1px solid black; float: left">
+			<div id="stocks">
+				<h3>Your stocks:</h3>
+				<table >
+					<thead>
+						<tr>
+							<th>Company Name</th>
+							<th>Current Price</th>
+							<th>Purchase Price</th>
+							<th>Net Profit</th>
+							<th></th>
+						</tr>
+					</thead><tbody>
+					<script id="stockTemplate" type="text/template">
+		<tr>
+		<td style="width:35%"><%=companyName%></td>
+		<td style="width:18%; text-align: right">$<%=currentPrice%></td>
+		<td style="width:28%; text-align: right">$<%=purchasePrice%></td>
+		<td style="width:28%; text-align: right">$<%=netProfit%></td>
+		<td style="width:10%;"><button class="delete" onclick="deletestock('<%=companyName%>')">Delete</button></td>
+	    </tr>
+		__
+	</script></tbody>
+					
+				</table>
+
+			</div>
+		</div>
+		<div id="content-right" style="width: 49%; float: left;">
+			<form id="stockLookupForm" action="#">
+				<p>
+					Enter a stock symbol to lookup: <input type="text" size="10"
+						id="stockSymbol" value="YHOO" /> <input type="button"
+						id="lookupStock" class="lookupStock" onclick="a(); "
+						value="Lookup" />
+				</p>
+
+
+				<div>
+					<p class="companyName">
+						Company Name: <input type="text" size="20" id="companyName" />
+					</p>
+					<p class="currentPrice">
+						The current price is: <input type="text" size="20"
+							id="currentPrice" />
+					</p>
+					<p class="purchasePrice">
+						The purchase price is: <input type="text" size="20"
+							id="purchasePrice" />
+					</p>
+
+					<p class="netProfit">
+						Net Profit: <input type="text" id="netProfit" type="text"
+							size="20" />
+					</p>
+				</div>
+
+			</form>
+		</div>
+	</div>
+
+</body>
+<script type="text/javascript"
+	src="resources/javascript/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="resources/javascript/underscore.js"></script>
+<script type="text/javascript" src="resources/javascript/backbone.js"></script>
+<script type="text/javascript" src="resources/javascript/app.js"></script>
+</html>
